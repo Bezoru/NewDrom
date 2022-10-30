@@ -2,10 +2,13 @@ package org.example;
 
 import org.openqa.selenium.By;
 import java.lang.Thread;
+import java.util.List;
+
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.junit.Assert;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
@@ -38,8 +41,7 @@ public class Main {
         driver.findElement(By.xpath("//form[@name='filters']/div/*[2]/*[2]/div/*[1]")).click();
 
         driver.findElement(By.xpath("//div[text()='2007']")).click();
-
-        //driver.findElement(By.xpath("//button[text()='Расширенный поиск']")).click();
+        Thread.sleep(600);
 
         driver.findElement(By.cssSelector("button[data-ftid='sales__filter_advanced-button']")).click();
 
@@ -49,5 +51,22 @@ public class Main {
         mileage.sendKeys("1");
         Thread.sleep(300);
         mileage.sendKeys(Keys.ENTER);
+
+        Thread.sleep(1000);
+
+        List<WebElement> spans = driver.findElements(By.cssSelector("div.css-r91w5p.e3f4v4l2 span"));
+
+        Assert.assertTrue(driver.findElements(By.cssSelector("div.css-r91w5p.e3f4v4l2 span")).isEmpty());
+
+        /*for (WebElement currentSpan: spans){
+
+            try{
+                Assert.assertTrue(currentSpan.getCssValue("text-decoration").contains("line-through"));
+                System.out.println("Link:" + currentSpan.getText() + " IS blue.");
+            }catch(AssertionError e){
+                System.out.println("Link:" + currentSpan.getText() + " is NOT blue");
+            }
+        }*/
+
     }
 }

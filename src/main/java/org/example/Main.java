@@ -3,6 +3,7 @@ package org.example;
 import org.openqa.selenium.By;
 import java.lang.Thread;
 import java.util.List;
+import org.apache.commons.lang3.StringUtils;
 
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -54,19 +55,28 @@ public class Main {
 
         Thread.sleep(1000);
 
-        List<WebElement> spans = driver.findElements(By.cssSelector("div.css-r91w5p.e3f4v4l2 span"));
+        List<WebElement> nameslist = driver.findElements(By.xpath("//div[contains(@class, 'css-13ocj84 e727yh30')]/div[1]/div/span"));
+
+        String[] names = new String[nameslist.size()];
+        String[] years = new String[nameslist.size()];
+
+        for (int i = 0; i < nameslist.size(); i++) {
+            names[i] = nameslist.get(i).getText();
+            years[i] = StringUtils.right(names[i], 4);
+        }
+        int yearcheck = 0;
+        int[] yearsInNumbers = new int[years.length];
+        for(int i = 0;i < yearsInNumbers.length;i++)
+        {
+            yearsInNumbers[i] = Integer.parseInt(years[i]);
+            if(yearsInNumbers[i] < 2007){
+                yearcheck++;
+            }
+        }
 
         Assert.assertTrue(driver.findElements(By.cssSelector("div.css-r91w5p.e3f4v4l2 span")).isEmpty());
+        Assert.assertEquals(0,yearcheck);
 
-        /*for (WebElement currentSpan: spans){
-
-            try{
-                Assert.assertTrue(currentSpan.getCssValue("text-decoration").contains("line-through"));
-                System.out.println("Link:" + currentSpan.getText() + " IS blue.");
-            }catch(AssertionError e){
-                System.out.println("Link:" + currentSpan.getText() + " is NOT blue");
-            }
-        }*/
 
     }
 }

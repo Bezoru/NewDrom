@@ -74,9 +74,24 @@ public class Main {
             }
         }
 
+        List<WebElement> milagelist = driver.findElements(By.cssSelector("div.css-1fe6w6s.e162wx9x0 > span:last-child"));
+        String [] milages = new String[milagelist.size()];
+        String[] miles = new String[milagelist.size()];
+
+
+        int milescheck = 0;
+        for (int i = 0; i < milagelist.size(); i++) {
+            milages[i] = milagelist.get(i).getText();
+            miles[i] = StringUtils.right(milages[i], 7);
+            if (!miles[i].equalsIgnoreCase("тыс. км")) {
+                milescheck++;
+            }
+        }
+
+
         Assert.assertTrue(driver.findElements(By.cssSelector("div.css-r91w5p.e3f4v4l2 span")).isEmpty());
         Assert.assertEquals(0,yearcheck);
-
+        Assert.assertEquals(0,milescheck);
 
     }
 }

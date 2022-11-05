@@ -28,7 +28,7 @@ public class SearchModule extends BaseSeleniumPage {
     @FindBy(xpath = "//form[@name='filters']/div/*[2]/*[2]/div/*[1]")
     private WebElement yearFrom;
 
-    @FindBy(xpath = "//button[data-ftid='sales__filter_advanced-button']")
+    @FindBy(css = "button[data-ftid='sales__filter_advanced-button']")
     private WebElement advancedFilter;
 
     @FindBy(css = "input[data-ftid='sales__filter_mileage-from']")
@@ -44,7 +44,7 @@ public class SearchModule extends BaseSeleniumPage {
         markInput.sendKeys(markValue);
         Thread.sleep(600);
         markInput.sendKeys(Keys.ENTER);
-
+        Thread.sleep(600);
         modelInput.click();
         modelInput.sendKeys(modelValue);
         Thread.sleep(600);
